@@ -1,9 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Drawing;
+using System.IO;
 
 namespace N2ImageAgent.AzureBlob.api
 {
@@ -19,7 +19,7 @@ namespace N2ImageAgent.AzureBlob.api
         }
 
         [HttpPost]
-        public string Post([FromForm]string projectname,[FromForm]string token, [FromForm]string tag, [FromForm]string filename, IFormFile file)
+        public string Post([FromForm]string projectname, [FromForm]string token, [FromForm]string tag, [FromForm]string filename, IFormFile file)
         {
             if (string.IsNullOrEmpty(token))
             {
@@ -55,7 +55,7 @@ namespace N2ImageAgent.AzureBlob.api
             //Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "swapupload");
             //Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "info");
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar);
-            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory+projectname+Path.DirectorySeparatorChar + "swapupload");
+            Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar + "swapupload");
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar + "info");
 
             System.IO.File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar + "swapupload" + Path.DirectorySeparatorChar + newFileName + ".gif", fileData);
@@ -94,8 +94,8 @@ namespace N2ImageAgent.AzureBlob.api
 
             try
             {
-                BlobUtility.UpoloadImageSource(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar + "swapupload" + Path.DirectorySeparatorChar + newFileName + ".gif",projectname, newFileName);
-                BlobUtility.UpoloadImageInfoSource(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar + "info" + Path.DirectorySeparatorChar + newFileName + ".json", projectname,newFileName);
+                BlobUtility.UpoloadImageSource(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar + "swapupload" + Path.DirectorySeparatorChar + newFileName + ".gif", projectname, newFileName);
+                BlobUtility.UpoloadImageInfoSource(AppDomain.CurrentDomain.BaseDirectory + projectname + Path.DirectorySeparatorChar + "info" + Path.DirectorySeparatorChar + newFileName + ".json", projectname, newFileName);
             }
             catch (Exception ex)
             {

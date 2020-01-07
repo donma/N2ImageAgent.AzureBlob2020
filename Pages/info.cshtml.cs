@@ -1,14 +1,12 @@
-﻿using System;
-using Microsoft.AspNetCore.Http.Features;
+﻿using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
 
 namespace N2ImageAgent.AzureBlob.Pages
 {
     public class infoModel : PageModel
     {
-     
+
         public void OnGet(string projectname, string id)
         {
 
@@ -40,7 +38,7 @@ namespace N2ImageAgent.AzureBlob.Pages
 
 
             Response.Redirect(BlobUtility.GetImageInfo(projectname.Trim().ToUpper(), id));
-            
+
         }
     }
 }
