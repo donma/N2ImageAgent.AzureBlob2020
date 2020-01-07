@@ -100,7 +100,7 @@ Image Info Sample
 ```
 azure_blob_connectionstring : 您在 Azure 上面的 connection string 
 
-bloname : 所建立起來的 blob name (請注意，這邊 azure 那邊規定是全小寫，不可以有特殊符號)
+blobcontainer : 所建立起來的 blob name (請注意，這邊 azure 那邊規定是全小寫，不可以有特殊符號)
 
 uploadtoken :  使用者上傳需要給的 token
 
