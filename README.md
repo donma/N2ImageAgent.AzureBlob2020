@@ -2,7 +2,9 @@
 
 Before You Know
 ----
-這是我之前開發的 https://github.com/donma/N2ImageAgent.AzureBlob ，基於這在去改寫的更符合大家給我的建議去改寫主要修正下列幾點
+這是我之前開發的 https://github.com/donma/N2ImageAgent.AzureBlob ，為何不去修改原本的版本呢？因為，有些朋友已經用在線上的專案，如果更改會很麻煩，加上我很懶，於是就保留遠本的重新改些一份 為 2020 版本，基於原本的再去改寫得更符合大家給我的建議
+
+改寫後主要修正下列幾點 : 
 
 * 更改存在 Blob 上面的結構，支援多專案共用，用 ProjectName 區隔開來
 
@@ -129,6 +131,8 @@ C# Upload Sample
                 formData.Add(new StringContent("測試"), "tag");
                 // 如果你指定filename 他就會覆蓋原本的圖片
                 // formData.Add(new StringContent("testgif"), "filename");
+                //但是如果你這樣做了，原本的快取圖不會更改，請您需要透過管理工具，把 
+                // BloContainer/[PROJECT_NAME]/thumbs/width_height/[ID].gif 檔案刪除重新製作縮圖
                 formData.Add(fileStreamContent, "file");
                 // Remember change your domain to https://yourdomain.com/api/upload to upload image.
                 var response = client.PostAsync("https://localhost:44325/api/upload", formData).Result;
