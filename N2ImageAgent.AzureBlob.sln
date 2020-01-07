@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N2ImageAgent.AzureBlob", "N2ImageAgent.AzureBlob.csproj", "{81472D33-D6F8-43E5-AF31-D4C31583EF23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81472D33-D6F8-43E5-AF31-D4C31583EF23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81472D33-D6F8-43E5-AF31-D4C31583EF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81472D33-D6F8-43E5-AF31-D4C31583EF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81472D33-D6F8-43E5-AF31-D4C31583EF23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {370A567B-6235-4D31-B4F2-16BB26FF5646}
+	EndGlobalSection
+EndGlobal
