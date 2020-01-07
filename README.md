@@ -113,7 +113,7 @@ projectsinfo: 請對應專案名稱，全大寫，如果您的專案是 SAMPLE1 
 C# Upload Sample
 ----
 ```C#
-               private string UploadImage(string file)
+        private string UploadImage(string file)
         {
             var src = System.IO.File.ReadAllBytes(file);
             Stream  stream = new MemoryStream(src);
