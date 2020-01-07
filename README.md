@@ -70,14 +70,30 @@ Image Info Sample
     }
   },
   "AllowedHosts": "*",
-  "a9connesctionstring": "DefaultEndpointsProtocol=https;AccountName=YOUR_ACCOUNT_NAME;AccountKey=YOUR_ACCOUNT_KEY;EndpointSuffix=core.windows.net",
-  "bloname": "n2imageagent",
+  "azure_blob_connectionstring": "DefaultEndpointsProtocol=https;AccountName=YOUR_ACCOUNT_NAME;AccountKey=YOUR_ACCOUNT_KEY;EndpointSuffix=core.windows.net",
+  "blobcontainer": "n2imageagent2020",
   "uploadtoken": "your_token",
-  "user_token_life_seconds": 90
+  "errorimage": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Blue_Screen_of_Death.png/800px-Blue_Screen_of_Death.png",
+  "notfound": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",
+  "projectsinfo": [
+    {
+      "Key": "PROJECT_NAME_WITH_UNLIMIT_TIME",
+      "Value": 0
+    },
+    {
+      "Key": "PROJECT_NAME_WITH_LIMIT_10_SECONDS",
+      "Value": 10
+    },
+    {
+      "Key": "SAMPLE1",
+      "Value": 4
+    }
+  ]
 }
 
+
 ```
-a9connesctionstring : 您在 Azure 上面的 connection string 
+azure_blob_connectionstring : 您在 Azure 上面的 connection string 
 
 bloname : 所建立起來的 blob name (請注意，這邊 azure 那邊規定是全小寫，不可以有特殊符號)
 
@@ -85,13 +101,19 @@ uploadtoken :  使用者上傳需要給的 token
 
 user_token_life_seconds : 使用者看到圖片，之後多久之後那張就會失效 
 
+errorimage : 發生錯誤去的圖片網址
+
+notfound : 找不到圖片去的網址
+
+projectsinfo: 請對應專案名稱，全大寫，如果您的專案是 SAMPLE1 並且設定為每張圖只能活4秒，就是設定如範本 SAMPLE1 ，如果您沒有設定或是設定為0 則會押 token 至當天。
+
 C# Upload Sample
 ----
 ```C#
-        private string UploadImage(string file)
+               private string UploadImage(string file)
         {
             var src = System.IO.File.ReadAllBytes(file);
-            Stream stream = new MemoryStream(src);
+            Stream  stream = new MemoryStream(src);
 
             HttpContent fileStreamContent = new StreamContent(stream);
             fileStreamContent.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data") { Name = "file", FileName = "xxx.jpg" };
@@ -100,19 +122,19 @@ C# Upload Sample
             using (var formData = new MultipartFormDataContent())
             {
                 formData.Add(new StringContent("your_token"), "token");
+                formData.Add(new StringContent("SAMPLE1"), "projectname"); //new add in 2020
                 formData.Add(new StringContent("測試"), "tag");
                 // 如果你指定filename 他就會覆蓋原本的圖片
                 // formData.Add(new StringContent("testgif"), "filename");
                 formData.Add(fileStreamContent, "file");
                 // Remember change your domain to https://yourdomain.com/api/upload to upload image.
-                var response = client.PostAsync("https://yourdomain.com/api/upload", formData).Result;
+                var response = client.PostAsync("https://localhost:44325/api/upload", formData).Result;
                 return response.Content.ReadAsStringAsync().Result;
             }
-
         }
         
         
-         var result = UploadImage(AppDomain.CurrentDomain.BaseDirectory + "iphone7.jpg");
+         var result = UploadImage(AppDomain.CurrentDomain.BaseDirectory + "sample.jpg");
          
          //response success 
          //success:imageid
