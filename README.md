@@ -5,8 +5,9 @@ Before You Know
 這是我之前開發的 https://github.com/donma/N2ImageAgent.AzureBlob ，基於這在去改寫的更符合大家給我的建議去改寫主要修正下列幾點
 
 * 更改存在 Blob 上面的結構，支援多專案共用，用 ProjectName 區隔開來
-  結構 Blob Container
+  結構 
   ```
+  Blob Container
         -Project1
             -source
               -images
