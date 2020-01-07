@@ -131,7 +131,7 @@ C# Upload Sample
                 formData.Add(new StringContent("測試"), "tag");
                 // 如果你指定filename 他就會覆蓋原本的圖片
                 // formData.Add(new StringContent("testgif"), "filename");
-                //但是如果你這樣做了，原本的快取圖不會更改，請您需要透過管理工具，把 
+                // 但是如果你這樣做了，原本的快取圖不會更改，請您需要透過管理工具，把 
                 // BloContainer/[PROJECT_NAME]/thumbs/width_height/[ID].gif 檔案刪除重新製作縮圖
                 formData.Add(fileStreamContent, "file");
                 // Remember change your domain to https://yourdomain.com/api/upload to upload image.
