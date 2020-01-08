@@ -22,9 +22,9 @@ Before You Know
               -100_100
                 -All Image Thumbnail size in 100x100
               -200_200
-                -All Image Thumbnail size in 100x100
+                -All Image Thumbnail size in 200x200
               -...
-          -Project2
+        -Project2
             -source
               -images
                 -Image Source Files
@@ -34,7 +34,7 @@ Before You Know
               -100_100
                 -All Image Thumbnail size in 100x100
               -200_200
-                -All Image Thumbnail size in 100x100
+                -All Image Thumbnail size in 200x200
               -...
    ```           
 
