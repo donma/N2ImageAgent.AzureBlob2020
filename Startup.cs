@@ -68,8 +68,10 @@ namespace N2ImageAgent.AzureBlob
         {
             if (ProjectKeepSecondsSettings == null) return 0;
 
-            if (ProjectKeepSecondsSettings.ContainsKey(projectName)) return ProjectKeepSecondsSettings[projectName];
-
+            if (ProjectKeepSecondsSettings.ContainsKey(projectName))
+            {
+                return ProjectKeepSecondsSettings[projectName];
+            }
             return 0;
         }
 
@@ -91,24 +93,8 @@ namespace N2ImageAgent.AzureBlob
             ErrorImage = Configuration.GetValue<string>("errorimage");
             NotFoundImage = Configuration.GetValue<string>("notfound");
 
-
-            //載入 appsettings.json  projectsinfo 的設定秒數，這寫法有點爛，改天有機會在好好研究 下
             ProjectKeepSecondsSettings = new Dictionary<string, int>();
-            for (var i = 0; i <= int.MaxValue; i++)
-            {
-                if (!string.IsNullOrEmpty(Configuration["projectsinfo" + ":" + i + ":" + "Key"]))
-                {
-                    int tmpSec = 0;
-                    int.TryParse(Configuration["projectsinfo" + ":" + i + ":" + "Value"], out tmpSec);
-                    ProjectKeepSecondsSettings.Add(Configuration["projectsinfo" + ":" + i + ":" + "Key"].Trim().ToUpper(), tmpSec);
-                }
-                else
-                {
-                    break;
-                }
-
-            }
-
+            Configuration.GetSection("projectsinfo").Bind(ProjectKeepSecondsSettings);
 
             MemCacheUrlPool = new ConcurrentDictionary<string, Models.CacheInfo>();
 
