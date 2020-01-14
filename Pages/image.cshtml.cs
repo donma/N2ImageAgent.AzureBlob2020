@@ -43,12 +43,12 @@ namespace N2ImageAgent.AzureBlob.Pages
                 {
                     if (_keepseconds <= 0)
                     {
-                        Response.Redirect(_projectname + "/source/" + id);
+                        Response.Redirect("/source/"+_projectname + id);
                         return;
                     }
                     else
                     {
-                        Response.Redirect(_projectname + "/source/" + id + "/" + _keepseconds);
+                        Response.Redirect( "/source/"+_projectname + "/" + id + "/" + _keepseconds);
                         return;
                     }
                 }
