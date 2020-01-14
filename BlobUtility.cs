@@ -24,7 +24,8 @@ namespace N2ImageAgent.AzureBlob
         {
             if (string.IsNullOrEmpty(projectName)) throw new ArgumentNullException("projectName");
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
-
+            
+            projectName = projectName.ToUpper();
             Microsoft.WindowsAzure.Storage.Blob.CloudBlobDirectory cloudBlobDirectory =
                 CloudBlobContainer.GetDirectoryReference(projectName + "/source/info");
 
@@ -39,7 +40,7 @@ namespace N2ImageAgent.AzureBlob
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
             if (string.IsNullOrEmpty(projectName)) throw new ArgumentNullException("projectName");
 
-
+            projectName = projectName.ToUpper();
             Microsoft.WindowsAzure.Storage.Blob.CloudBlobDirectory cloudBlobDirectory =
                 CloudBlobContainer.GetDirectoryReference(projectName + "/" + blobPath);
 
@@ -62,7 +63,7 @@ namespace N2ImageAgent.AzureBlob
             Microsoft.WindowsAzure.Storage.Blob.CloudBlobDirectory cloudBlobDirectory =
                 CloudBlobContainer.GetDirectoryReference(projectName + "/" + blobPath);
 
-
+            projectName = projectName.ToUpper();
             var res = CloudBlobContainer.GetPermissionsAsync().Result;
 
             if (keepSeconds > 0)
@@ -98,6 +99,7 @@ namespace N2ImageAgent.AzureBlob
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
             if (string.IsNullOrEmpty(projectName)) throw new ArgumentNullException("projectName");
 
+            projectName = projectName.ToUpper();
             Microsoft.WindowsAzure.Storage.Blob.CloudBlobDirectory cloudBlobDirectory =
                 CloudBlobContainer.GetDirectoryReference(projectName + "/" + blobPath);
 
@@ -111,7 +113,7 @@ namespace N2ImageAgent.AzureBlob
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
             if (string.IsNullOrEmpty(projectName)) throw new ArgumentNullException("projectName");
 
-
+            projectName = projectName.ToUpper();
             Microsoft.WindowsAzure.Storage.Blob.CloudBlobDirectory cloudBlobDirectory =
                  CloudBlobContainer.GetDirectoryReference(projectName + "/" + filePath);
 
@@ -130,7 +132,7 @@ namespace N2ImageAgent.AzureBlob
             if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException("filePath");
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
 
-
+            projectName = projectName.ToUpper();
             Microsoft.WindowsAzure.Storage.Blob.CloudBlobDirectory cloudBlobDirectory =
                 CloudBlobContainer.GetDirectoryReference(projectName + "/" + "source/images/");
 
@@ -150,6 +152,7 @@ namespace N2ImageAgent.AzureBlob
             if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException("filePath");
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
 
+            projectName = projectName.ToUpper();
             Microsoft.WindowsAzure.Storage.Blob.CloudBlobDirectory cloudBlobDirectory =
                CloudBlobContainer.GetDirectoryReference(projectName + "/" + "source/info/");
 
@@ -167,7 +170,7 @@ namespace N2ImageAgent.AzureBlob
             var cloudBlobDirectory =
           CloudBlobContainer.GetDirectoryReference(projectName + "/source/info");
 
-
+            projectName = projectName.ToUpper();
             var res = CloudBlobContainer.GetPermissionsAsync().Result;
 
             var sharedPolicy = new Microsoft.WindowsAzure.Storage.Blob.SharedAccessBlobPolicy()
