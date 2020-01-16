@@ -24,6 +24,32 @@ namespace N2ImageAgent.AzureBlob.Pages
                 Response.Redirect(Startup.ErrorImage);
             }
             _projectname = projectname.Trim().ToUpper();
+            
+            #region PreHanlder Check Cache
+
+                if (Startup.MemCacheUrlPool.ContainsKey(w + "_" + h + "_" + id))
+                {
+                    try
+                    {
+                        var tmpSign = Startup.MemCacheUrlPool.GetValueOrDefault(w + "_" + h + "_" + id);
+
+                        if (tmpSign.UTCExpire > DateTime.UtcNow)
+                        {
+                            Response.Redirect(tmpSign.Url);
+                        }
+                        else
+                        {
+                            Startup.MemCacheUrlPool.TryRemove(w + "_" + h + "_" + id, out _);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+            #endregion
+            
 
             var res = BlobUtility.IsFileExisted(id + ".gif", _projectname);
 
@@ -55,30 +81,7 @@ namespace N2ImageAgent.AzureBlob.Pages
 
                 #endregion
 
-                #region PreHanlder Check Cache
-
-                if (Startup.MemCacheUrlPool.ContainsKey(w + "_" + h + "_" + id))
-                {
-                    try
-                    {
-                        var tmpSign = Startup.MemCacheUrlPool.GetValueOrDefault(w + "_" + h + "_" + id);
-
-                        if (tmpSign.UTCExpire > DateTime.UtcNow)
-                        {
-                            Response.Redirect(tmpSign.Url);
-                        }
-                        else
-                        {
-                            Startup.MemCacheUrlPool.TryRemove(w + "_" + h + "_" + id, out _);
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
-
-                #endregion
+                
 
 
                 if (BlobUtility.IsFileExisted(id + ".gif", _projectname, "thumbs/" + w + "_" + h))
