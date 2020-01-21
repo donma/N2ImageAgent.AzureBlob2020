@@ -42,6 +42,8 @@ Before You Know
 * 優化 appsettings.json
 * 升級到 .net core 3.1
 
+特別感謝 Eleven Hsiao 幫忙優化
+
 Intro
 ----
 這是一套基於 .net Core 3.1 + Azure Storage Blob , 這主要功能可以幫你把圖放到 Blob 上面 
