@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace N2ImageAgent.AzureBlob.Pages
 {
@@ -12,44 +14,47 @@ namespace N2ImageAgent.AzureBlob.Pages
         private string _projectname;
         private int _keepseconds;
 
-        public void OnGet(string projectname, string id, string w, string h)
+        public async Task<ActionResult> OnGet(string projectname, string id, string w, string h)
         {
 
             if (string.IsNullOrEmpty(id))
             {
-                Response.Redirect(Startup.ErrorImage);
+              //  Response.Redirect(Startup.ErrorImage);
+                return new RedirectResult(Startup.ErrorImage, true);
             }
             if (string.IsNullOrEmpty(projectname))
             {
-                Response.Redirect(Startup.ErrorImage);
+                // Response.Redirect(Startup.ErrorImage);
+                return new RedirectResult(Startup.ErrorImage, true);
             }
             _projectname = projectname.Trim().ToUpper();
-            
+
             #region PreHanlder Check Cache
 
-                if (Startup.MemCacheUrlPool.ContainsKey(w + "_" + h + "_" + id))
+            if (Startup.MemCacheUrlPool.ContainsKey(w + "_" + h + "_" + id))
+            {
+                try
                 {
-                    try
-                    {
-                        var tmpSign = Startup.MemCacheUrlPool.GetValueOrDefault(w + "_" + h + "_" + id);
+                    var tmpSign = Startup.MemCacheUrlPool.GetValueOrDefault(w + "_" + h + "_" + id);
 
-                        if (tmpSign.UTCExpire > DateTime.UtcNow)
-                        {
-                            Response.Redirect(tmpSign.Url);
-                        }
-                        else
-                        {
-                            Startup.MemCacheUrlPool.TryRemove(w + "_" + h + "_" + id, out _);
-                        }
+                    if (tmpSign.UTCExpire > DateTime.UtcNow)
+                    {
+                        //  Response.Redirect(tmpSign.Url);
+                        return new RedirectResult(tmpSign.Url, true);
                     }
-                    catch
+                    else
                     {
-
+                        Startup.MemCacheUrlPool.TryRemove(w + "_" + h + "_" + id, out _);
                     }
                 }
+                catch
+                {
+
+                }
+            }
 
             #endregion
-            
+
 
             var res = BlobUtility.IsFileExisted(id + ".gif", _projectname);
 
@@ -69,19 +74,20 @@ namespace N2ImageAgent.AzureBlob.Pages
                 {
                     if (_keepseconds <= 0)
                     {
-                        Response.Redirect("/source/"+_projectname + id);
-                        return;
+                        //   Response.Redirect("/source/"+_projectname + id);
+                        return new RedirectResult("/source/" + _projectname + id, true); ;
                     }
                     else
                     {
-                        Response.Redirect( "/source/"+_projectname + "/" + id + "/" + _keepseconds);
-                        return;
+                        // Response.Redirect( "/source/"+_projectname + "/" + id + "/" + _keepseconds);
+                        return new RedirectResult("/source/" + _projectname + "/" + id + "/" + _keepseconds, true); 
+
                     }
                 }
 
                 #endregion
 
-                
+
 
 
                 if (BlobUtility.IsFileExisted(id + ".gif", _projectname, "thumbs/" + w + "_" + h))
@@ -96,7 +102,8 @@ namespace N2ImageAgent.AzureBlob.Pages
                     var tmpCache = new Models.CacheInfo { Url = path + para, UTCExpire = checkDate };
                     Startup.MemCacheUrlPool.TryAdd(w + "_" + h + "_" + id, tmpCache);
 
-                    Response.Redirect(path + para);
+                    //  Response.Redirect(path + para);
+                    return new RedirectResult(path + para, true);
                 }
 
                 #region  寬圖處理 : _w>0 , _h=0
@@ -163,14 +170,15 @@ namespace N2ImageAgent.AzureBlob.Pages
 
 
                 System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + _projectname + Path.DirectorySeparatorChar + "thumbswap" + Path.DirectorySeparatorChar + id + "_" + random + ".gif");
-                Response.Redirect(tmpPath + tmpPara);
-
+                // Response.Redirect(tmpPath + tmpPara);
+                return new RedirectResult(tmpPath + tmpPara, true);
                 #endregion
 
             }
             else
             {
-                Response.Redirect(Startup.NotFoundImage);
+                //Response.Redirect(Startup.NotFoundImage);
+                return new RedirectResult(Startup.NotFoundImage, true);
             }
 
 
