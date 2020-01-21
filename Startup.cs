@@ -42,7 +42,6 @@ namespace N2ImageAgent.AzureBlob
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
             services.AddMvc().AddRazorPagesOptions(
                                opts => opts.Conventions.AddPageRoute("/source", "source/{projectname?}/{id?}")
                                                        .AddPageRoute("/image", "image/{projectname?}/{id?}/{w?}/{h?}")

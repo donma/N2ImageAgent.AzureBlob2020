@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace N2ImageAgent.AzureBlob
 {
@@ -7,6 +9,16 @@ namespace N2ImageAgent.AzureBlob
         public void OnGet()
         {
             //For Developer Check Use.
+
+            var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
+            if (syncIOFeature != null)
+            {
+                syncIOFeature.AllowSynchronousIO = true;
+            }
+            //CacheData
+            //Response.Body.Write(System.Text.Encoding.UTF8.GetBytes(
+            //   JsonConvert.SerializeObject(Startup.MemCacheUrlPool)
+            //   ));
 
             //var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
             //if (syncIOFeature != null)
